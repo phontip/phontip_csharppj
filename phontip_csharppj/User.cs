@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,7 +24,7 @@ namespace phontip_csharppj
             return conn;
 
         }
-        private void Showdata(string arge)
+        private void Showdata(string valueToSearch)
         {
             MySqlConnection conn = databaseConnection();
             DataSet ds = new DataSet();
@@ -42,9 +42,27 @@ namespace phontip_csharppj
             dataGrid.DataSource = ds.Tables[0].DefaultView;
 
         }
- 
+        MySqlConnection connection = new MySqlConnection(" datasource=127.0.0.1;port=3306;username=root;password=;database=pair;charset=utf8;");
+        public void FillDGV(string valueToSearch)
+        {
+           MySqlCommand command = new MySqlCommand("SELECT * FROM user WHERE CONCAT(ID,User_Name,Phone,Address,Password) LIKE '%" + valueToSearch + "%'", connection);
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
 
-       
+            dataGrid.AllowUserToAddRows = false;
+            dataGrid.DataSource = table;         
+            dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //ปรับให้เท่ากับขนาด datagrid
+
+        }
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+            FillDGV(textBox5.Text);
+        }
+
+
+
 
         private void Usere_Load(object sender, EventArgs e)
         {
@@ -140,6 +158,7 @@ namespace phontip_csharppj
             Obj.Show();
             this.Hide();
         }
+        
 
        
     }
