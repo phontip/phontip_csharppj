@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,12 +17,12 @@ namespace phontip_csharppj
             InitializeComponent();
         }
 
-        int startpos = 0;
-        private void timer1_Tick(object sender, EventArgs e)
+        int starttime = 0;
+        private void timer1_Tick(object sender, EventArgs e) //จับเวลาให้ loding-100 ให้ไปหน้า login
         {
-            startpos += 1;
-            Myprogress.Value = startpos;
-            Percentagelable.Text = startpos + "%";
+            starttime += 1;
+            Myprogress.Value = starttime;
+            Percentagelable.Text = starttime + "%";
 
             if(Myprogress.Value == 100)
             {
